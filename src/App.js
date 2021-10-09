@@ -42,6 +42,35 @@ function InfoSection(props) {
   )
 }
 
+function LanguageList(props) {
+  return (
+    <div>
+      <ul>
+        <li>lang 1</li>
+        <li>lang 2</li>
+        <li>lang 3</li>
+      </ul>
+    </div>
+  )
+}
+
+function BasicInfo(props) {
+  return (
+    <div>
+      <p>capital</p>
+      <p>region</p>
+    </div>
+  )
+}
+
+function FlagContainer(props) {
+  return (
+    <div>
+      <img/>
+    </div>
+  )
+}
+
 
 function CountriesInfoPanel(props) {
   return (
