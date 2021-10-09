@@ -22,11 +22,10 @@ function App() {
     "flag": flag
   } 
 
-
   return (
     <div className="Countries_app">
       <SearchBar></SearchBar>
-      <CountriesInfoPanel></CountriesInfoPanel>
+      <CountriesInfoPanel data={data_obj}></CountriesInfoPanel>
     </div>
   );
 }
@@ -34,9 +33,9 @@ function App() {
 function InfoSection(props) {
   return (
     <div>
-      <h1>header</h1>
+      <h1>{props.header}</h1>
       <div>
-        div
+        {props.Content}
       </div>
     </div>
   )
@@ -46,9 +45,11 @@ function LanguageList(props) {
   return (
     <div>
       <ul>
-        <li>lang 1</li>
-        <li>lang 2</li>
-        <li>lang 3</li>
+      {
+        Object.keys(props.languages).map( (lang) => {
+          return <li>{lang}</li>
+        })
+      }
       </ul>
     </div>
   )
@@ -57,8 +58,8 @@ function LanguageList(props) {
 function BasicInfo(props) {
   return (
     <div>
-      <p>capital</p>
-      <p>region</p>
+      <p>{props.info_obj.capital}</p>
+      <p>{props.info_obj.region}</p>
     </div>
   )
 }
@@ -66,18 +67,29 @@ function BasicInfo(props) {
 function FlagContainer(props) {
   return (
     <div>
-      <img/>
+      <img src={props.flag}/>
     </div>
   )
 }
 
 
 function CountriesInfoPanel(props) {
+  const country = props.data.country_name
+  const languages = props.data.languages
+  const basic_info_obj = {
+    "capital": props.data.capital,
+    "region": props.data.region
+  }
+  const flag = props.data.flag
+  const BasicInfoContent = <BasicInfo info_obj={basic_info_obj}></BasicInfo>
+  const LanguageListContent = <LanguageList languages={languages}></LanguageList>
+  const FlagContainerContent = <FlagContainer flag={flag}></FlagContainer> 
+
   return (
     <div>
-      <InfoSection></InfoSection>
-      <InfoSection></InfoSection>
-      <InfoSection></InfoSection>
+      <InfoSection header={country} Content={BasicInfoContent}></InfoSection>
+      <InfoSection header={"language"} Content={LanguageListContent}></InfoSection>
+      <InfoSection header={''} Content={FlagContainerContent}></InfoSection>
     </div>
   )
 }
