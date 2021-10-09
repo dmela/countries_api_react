@@ -25,6 +25,38 @@ function App() {
 
   return (
     <div className="Countries_app">
+      <SearchBar></SearchBar>
+      <CountriesInfoPanel></CountriesInfoPanel>
+    </div>
+  );
+}
+
+function InfoSection(props) {
+  return (
+    <div>
+      <h1>header</h1>
+      <div>
+        div
+      </div>
+    </div>
+  )
+}
+
+
+function CountriesInfoPanel(props) {
+  return (
+    <div>
+      <InfoSection></InfoSection>
+      <InfoSection></InfoSection>
+      <InfoSection></InfoSection>
+    </div>
+  )
+}
+
+function SearchBar() {
+  return (
+    <div>
+      find countries: <input></input>
     </div>
   );
 }
