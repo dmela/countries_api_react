@@ -8,18 +8,12 @@ let json_obj = require('./resources/example_data.json')
 function App() {
 
   console.log(json_obj)
-  const country_name = json_obj[0].name.official
-  const capital = json_obj[0].capital[0]
-  const region = json_obj[0].region
-  const languages = json_obj[0].languages
-  const flag = temp_flag
-
   const data_obj = {
-    "country_name": country_name,
-    "capital": capital,
-    "region": region,
-    "languages": languages,
-    "flag": flag
+    "country_name": json_obj[0].name.official,
+    "capital": cjson_obj[0].capital[0],
+    "region": json_obj[0].region,
+    "languages": json_obj[0].languages,
+    "flag": temp_flag
   } 
 
   return (
