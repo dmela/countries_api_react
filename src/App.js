@@ -68,20 +68,18 @@ function FlagContainer(props) {
 
 
 function CountriesInfoPanel(props) {
-  const country = props.data.country_name
-  const languages = props.data.languages
   const basic_info_obj = {
     "capital": props.data.capital,
     "region": props.data.region
   }
   const flag = props.data.flag
   const BasicInfoContent = <BasicInfo info_obj={basic_info_obj}></BasicInfo>
-  const LanguageListContent = <LanguageList languages={languages}></LanguageList>
+  const LanguageListContent = <LanguageList languages={props.data.languages}></LanguageList>
   const FlagContainerContent = <FlagContainer flag={flag}></FlagContainer> 
 
   return (
     <div>
-      <InfoSection header={country} Content={BasicInfoContent}></InfoSection>
+      <InfoSection header={props.data.country_name} Content={BasicInfoContent}></InfoSection>
       <InfoSection header={"language"} Content={LanguageListContent}></InfoSection>
       <InfoSection header={''} Content={FlagContainerContent}></InfoSection>
     </div>
