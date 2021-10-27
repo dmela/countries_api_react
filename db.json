@@ -1,5 +1,5 @@
-[
-    {
+{
+    "dataexample": {
         "name": {
             "common": "Niger",
             "official": "Republic of Niger",
@@ -159,7 +159,8 @@
         "population": 24206636,
         "flags": {
             "svg": "https://flagcdn.com/ne.svg",
-            "png": "https://flagcdn.com/w320/ne.png"
+            "png": "https://flagcdn.com/w320/ne.png",
+            "local": "src/resources/example_flag.png"
         }
     }
-]
+}

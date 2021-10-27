@@ -1,31 +1,37 @@
 import React, {useState, useEffect} from 'react'
 import axios from 'axios'
-import temp_flag from './resources/example_flag.png'
-// let temp_flag = require('./resources/example_flag.png') // toimii myös, mutta temp_flag.default
-
-let json_obj = require('./resources/example_data.json')
 
 function App() {
 
-  console.log(json_obj)
-  const country_name = json_obj[0].name.official
-  const capital = json_obj[0].capital[0]
-  const region = json_obj[0].region
-  const languages = json_obj[0].languages
-  const flag = temp_flag
-
-  const data_obj = {
-    "country_name": country_name,
-    "capital": capital,
-    "region": region,
-    "languages": languages,
-    "flag": flag
+  const initialState = {
+    'countryName': '',
+    'capital': '',
+    'region': '',
+    'languages': {},
+    'flag': ''
   } 
+
+  const [country, setCountry] = useState(initialState)
+  
+  useEffect( () => {
+    axios
+    .get('http://localhost:3001/dataexample')
+    .then(response => {
+      setCountry({
+        'countryName': response.data.name.official,
+        'capital': response.data.capital[0],
+        'region': response.data.region,
+        'languages': response.data.languages,
+        'flag': response.data.flags.local
+      })
+    })
+  }, [])
+  console.log(country)
 
   return (
     <div className="Countries_app">
       <SearchBar></SearchBar>
-      <CountriesInfoPanel data={data_obj}></CountriesInfoPanel>
+      <CountriesInfoPanel data={country}></CountriesInfoPanel>
     </div>
   );
 }
@@ -46,8 +52,8 @@ function LanguageList(props) {
     <div>
       <ul>
       {
-        Object.keys(props.languages).map( (lang) => {
-          return <li>{lang}</li>
+        Object.keys(props.languages).map( lang => {
+          return <li key={lang}>{lang}</li>
         })
       }
       </ul>
@@ -67,27 +73,25 @@ function BasicInfo(props) {
 function FlagContainer(props) {
   return (
     <div>
-      <img src={props.flag}/>
+      <img alt="country_flag" src={props.flag}/>
     </div>
   )
 }
 
 
 function CountriesInfoPanel(props) {
-  const country = props.data.country_name
-  const languages = props.data.languages
   const basic_info_obj = {
     "capital": props.data.capital,
     "region": props.data.region
   }
   const flag = props.data.flag
   const BasicInfoContent = <BasicInfo info_obj={basic_info_obj}></BasicInfo>
-  const LanguageListContent = <LanguageList languages={languages}></LanguageList>
+  const LanguageListContent = <LanguageList languages={props.data.languages}></LanguageList>
   const FlagContainerContent = <FlagContainer flag={flag}></FlagContainer> 
 
   return (
     <div>
-      <InfoSection header={country} Content={BasicInfoContent}></InfoSection>
+      <InfoSection header={props.data.country_name} Content={BasicInfoContent}></InfoSection>
       <InfoSection header={"language"} Content={LanguageListContent}></InfoSection>
       <InfoSection header={''} Content={FlagContainerContent}></InfoSection>
     </div>
