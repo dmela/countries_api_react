@@ -73,7 +73,7 @@ function BasicInfo(props) {
 function FlagContainer(props) {
   return (
     <div>
-      <img src={props.flag}/>
+      <img alt="country_flag" src={props.flag}/>
     </div>
   )
 }
