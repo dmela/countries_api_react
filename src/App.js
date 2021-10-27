@@ -1,25 +1,37 @@
 import React, {useState, useEffect} from 'react'
 import axios from 'axios'
-import temp_flag from './resources/example_flag.png'
-// let temp_flag = require('./resources/example_flag.png') // toimii myös, mutta temp_flag.default
-
-let json_obj = require('./resources/example_data.json')
 
 function App() {
 
-  console.log(json_obj)
-  const data_obj = {
-    "country_name": json_obj[0].name.official,
-    "capital": cjson_obj[0].capital[0],
-    "region": json_obj[0].region,
-    "languages": json_obj[0].languages,
-    "flag": temp_flag
+  const initialState = {
+    'countryName': '',
+    'capital': '',
+    'region': '',
+    'languages': {},
+    'flag': ''
   } 
+
+  const [country, setCountry] = useState(initialState)
+  
+  useEffect( () => {
+    axios
+    .get('http://localhost:3001/dataexample')
+    .then(response => {
+      setCountry({
+        'countryName': response.data.name.official,
+        'capital': response.data.capital[0],
+        'region': response.data.region,
+        'languages': response.data.languages,
+        'flag': response.data.flags.local
+      })
+    })
+  }, [])
+  console.log(country)
 
   return (
     <div className="Countries_app">
       <SearchBar></SearchBar>
-      <CountriesInfoPanel data={data_obj}></CountriesInfoPanel>
+      <CountriesInfoPanel data={country}></CountriesInfoPanel>
     </div>
   );
 }
