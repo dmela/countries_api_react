@@ -52,8 +52,8 @@ function LanguageList(props) {
     <div>
       <ul>
       {
-        Object.keys(props.languages).map( (lang) => {
-          return <li>{lang}</li>
+        Object.keys(props.languages).map( lang => {
+          return <li key={lang}>{lang}</li>
         })
       }
       </ul>
